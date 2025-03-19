@@ -1,0 +1,40 @@
+function f = objfun(x)
+
+
+consumption = readmatrix("household_electricity_usage.csv");
+
+
+con_jan = 
+con_feb = 
+con_mar = 
+con_apr =
+con_may =
+con_jun =
+con_jul =
+con_aug =
+con_sep =
+con_oct =
+con_nov =
+con_dec =
+
+gen_jan =
+gen_feb = 
+gen_mar = 
+gen_apr =
+gen_may =
+gen_jun =
+gen_jul =
+gen_aug =
+gen_sep =
+gen_oct =
+gen_nov =
+gen_dec =
+
+
+
+
+
+
+%%%
+% 
+%%%
