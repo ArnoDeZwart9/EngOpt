@@ -1,2 +1,0 @@
-consumption = readmatrix("household_electricity_usage.csv");
-

@@ -1,65 +1,23 @@
 function f = objfun(x)
+%% init
+azi_sol = x(1);
+ele_sol = x(2);
+area = 1; %m^2
+[azimuth, elevation, irradiation, usage] = init_poly();
 
+%% rest
 
-consumption = readmatrix("household_electricity_usage.csv");
+% power calculation
 
+for i = 1:12
+    power(i) = solar_power(azi_sol, ele_sol, azimuth(i), elevation(i), irradiation(i), area);
+end
 
-% Month 1
-azimuth_1 = @(x) 13.58*x + 3.415;
-elevation_1 = @(x) -2.465e-06*x.^6 + 0.0001777*x.^5 - 0.001289*x.^4 - 0.1211*x.^3 + 2.126*x.^2 - 2.782*x - 57.59;
-irradiation_1 = @(x) -0.0005845*x.^6 + 0.03995*x.^5 - 0.9978*x.^4 + 10.91*x.^3 - 48.74*x.^2 + 71.14*x - 10.83;
-usage_1 = @(x) -4.483e-08*x.^8 + 4.902e-06*x.^7 - 0.0002151*x.^6 + 0.004847*x.^5 - 0.05936*x.^4 + 0.3805*x.^3 - 1.09*x.^2 + 0.9141*x + 1.091;
-
-% Month 2
-azimuth_2 = @(x) 14.11*x - 3.777;
-elevation_2 = @(x) -6.488e-06*x.^6 + 0.0004908*x.^5 - 0.01025*x.^4 - 0.008381*x.^3 + 1.573*x.^2 - 2.404*x - 49.56;
-irradiation_2 = @(x) -0.0006739*x.^6 + 0.04645*x.^5 - 1.165*x.^4 + 12.67*x.^3 - 55.05*x.^2 + 77.07*x - 10.85;
-usage_2 = @(x) -4.888e-08*x.^8 + 5.345e-06*x.^7 - 0.0002345*x.^6 + 0.005285*x.^5 - 0.06472*x.^4 + 0.4149*x.^3 - 1.188*x.^2 + 0.9967*x + 1.189;
-
-% Month 3
-azimuth_3 = @(x) 14.71*x - 9.713;
-elevation_3 = @(x) -1.263e-05*x.^6 + 0.0009592*x.^5 - 0.02345*x.^4 + 0.1593*x.^3 + 0.6546*x.^2 - 0.8638*x - 38.98;
-irradiation_3 = @(x) -0.0005278*x.^6 + 0.03641*x.^5 - 0.8994*x.^4 + 9.281*x.^3 - 34.55*x.^2 + 37.15*x - 1.889;
-usage_3 = @(x) -3.511e-08*x.^8 + 3.928e-06*x.^7 - 0.0001753*x.^6 + 0.004002*x.^5 - 0.04952*x.^4 + 0.3207*x.^3 - 0.934*x.^2 + 0.8232*x + 0.9211;
-
-% Month 4
-azimuth_4 = @(x) 15.36*x - 29.78;
-elevation_4 = @(x) -1.245e-05*x.^6 + 0.001061*x.^5 - 0.02986*x.^4 + 0.2827*x.^3 - 0.02951*x.^2 - 2.01*x - 24.9;
-irradiation_4 = @(x) -0.0002366*x.^6 + 0.016*x.^5 - 0.3568*x.^4 + 2.515*x.^3 + 3.621*x.^2 - 28.89*x + 9.855;
-usage_4 = @(x) -3.46e-08*x.^8 + 3.871e-06*x.^7 - 0.0001728*x.^6 + 0.003944*x.^5 - 0.0488*x.^4 + 0.3161*x.^3 - 0.9204*x.^2 + 0.8112*x + 0.9077;
-
-
-con_jan = 
-con_feb = 
-con_mar = 
-con_apr =
-con_may =
-con_jun =
-con_jul =
-con_aug =
-con_sep =
-con_oct =
-con_nov =
-con_dec =
-
-gen_jan =
-gen_feb = 
-gen_mar = 
-gen_apr =
-gen_may =
-gen_jun =
-gen_jul =
-gen_aug =
-gen_sep =
-gen_oct =
-gen_nov =
-gen_dec =
+f = power;
+% least squares
 
 
 
 
 
 
-%%%
-% 
-%%%

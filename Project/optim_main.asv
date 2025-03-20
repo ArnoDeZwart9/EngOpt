@@ -1,0 +1,14 @@
+clear all;
+
+f = objfun([180 45]);
+
+%% plotting
+
+time = 1:24;
+
+figure(1); clf(1);
+hold on
+for i = 1:12
+    peanut = double(subs(f(1), time));
+    plot(time, peanut)
+end
