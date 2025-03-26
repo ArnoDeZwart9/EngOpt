@@ -1,6 +1,6 @@
 clear all;
 
-f = objfun([180 45]);
+f = objfun([180 45 10]);
 
 %% plotting
 
