@@ -9,12 +9,23 @@ usage = transpose(readmatrix("data\usage.csv"));
 
 data = [azimuth elevation irradiation usage];
 
-
 %% run objective 
-x = [180 45 1];
-f = objfun_disc(x, data);
+format('long');
 
-disp(f)
+% options = optimoptions('fminsearch', ...
+%     'Algorithm','quasi-newton', ...
+%     'Display','iter', ...
+%     'HessianApproximation','steepdesc', ...
+%     'MaxFunctionEvaluations', 2e4);
+
+
+x0 = [180 45 1];
+% x = fminunc(@(x) objfun_disc(x,data), x0, options);
+x = fminsearch(@(x) objfun_disc(x,data), x0);
+
+
+
+disp(x)
 %% plotting
 % 
 % time = 1:24;

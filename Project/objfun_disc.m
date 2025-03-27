@@ -30,7 +30,7 @@ for i = 1:numel(azimuth)
     sun_vec = [cosd(elevation(i)) * cosd(azimuth(i)), cosd(elevation(i)) * sind(azimuth(i)), sind(elevation(i))];
     angle = acosd(sum(sun_vec .* panel_vec));
     power(i) = max(0, cosd(angle) * irradiation(i) * area * eff);
-    overshoot(i) = power(i) - usage(i);
+    overshoot(i) = abs(power(i) - usage(i));
     overshoot_tot = overshoot_tot + overshoot(i);
 end
 

@@ -12,12 +12,12 @@ function sa_beam(n)
 
 % preparations
 format long g
-
+close all
 
 
 % define beam constants
 L = 100;         % initial length
-P = [1,1,0];     % load vector at tip: [Fx Fy M]
+P = [1,0,0];     % load vector at tip: [Fx Fy M]
 E = 2e5;         % Young's modulus
 A = 2;           % cross-sectional area
 I = 3;           % moment of inertia

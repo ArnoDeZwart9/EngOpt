@@ -11,20 +11,21 @@ function gfd_beam(n)
 % refinement.
 
 % preparations
+close all
 format long g
 
 
 % define beam constants
 L = 100;         % initial length
-P = [1,1,0];     % load vector at tip: [Fx Fy M]
+P = [1,0,0];     % load vector at tip: [Fx Fy M]
 E = 2e5;         % Young's modulus
 A = 2;           % cross-sectional area
 I = 3;           % moment of inertia
 
 % set number of elements
 if ~nargin
-    n = 10;  % relatively coarse mesh
-    %n = 100; % fine mesh
+    %n = 10;  % relatively coarse mesh
+    n = 100; % fine mesh
 end
 
 % compute analytical sensitivity values, used as reference
