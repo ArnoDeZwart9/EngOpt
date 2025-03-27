@@ -1,15 +1,21 @@
-function f = objfun_disc(x)
+function f = objfun_disc(x, data)
+
+
 %% init
-azi_sol = x(1);
-ele_sol = x(2);
+azi_sol = x(1); %degrees
+ele_sol = x(2); %degrees
 area = x(3); %m^2
 eff = 0.1; %efficiency
 
 %% load data
-azimuth = readmatrix("data\azimuth.csv");
-elevation = readmatrix("data\elevation.csv");
-irradiation = readmatrix("data\irradiation.csv");
-usage = transpose(readmatrix("data\usage.csv"));
+% azimuth = readmatrix("data\azimuth.csv");
+% elevation = readmatrix("data\elevation.csv");
+% irradiation = readmatrix("data\irradiation.csv");
+% usage = transpose(readmatrix("data\usage.csv"));
+azimuth = data(1);
+elevation = data(2);
+irradiation = data(3);
+usage = data(4);
 
 %% calculate
 % Convert azimuth and elevation to Cartesian coordinates
@@ -28,4 +34,4 @@ for i = 1:numel(azimuth)
     overshoot_tot = overshoot_tot + overshoot(i);
 end
 
-f=overshoot;%overshoot_tot;
+f = overshoot_tot;%overshoot_tot;
