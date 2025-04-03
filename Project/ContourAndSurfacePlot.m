@@ -1,3 +1,5 @@
+clear all;
+
 %% load data
 
 azimuth = readmatrix("data\azimuth.csv");
@@ -7,24 +9,24 @@ usage = transpose(readmatrix("data\usage.csv"));
 
 
 % Contour plot objective function
-x = linspace(0,360);
-y = linspace(0,90);
-%z = linspace(1,1);
-[X,Y] = meshgrid(x,y);
-%Z = meshgrid(z,z);
-for j=1:1:length(X)
-  for i=1:1:length(Y)   
-      F(j,i) = objfun_disc([x(j) y(i) 10], azimuth, elevation, irradiation, usage);
+az = 1:4:360;
+el = 1:1:90;
+
+for j=1:1:length(el)
+  for i=1:1:length(az)
+      f = objfun_disc([az(i) el(j) 60], azimuth, elevation, irradiation, usage);
+      funk(j,i) = f;
   end
 end
 
+
 figure(1);
-contour(x,y,F,"ShowText","on")
+contour(az,el,funk,"ShowText","on")
 xlabel("Azimuth Angle [Degrees]")
 ylabel("Elevation Angle [Degrees]")
 
 
 figure(2);
-surf(x,y,F)
+surf(az,el,funk)
 xlabel("Azimuth Angle [Degrees]")
 ylabel("Elevation Angle [Degrees]")
