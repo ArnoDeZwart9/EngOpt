@@ -14,7 +14,7 @@ el = 1:1:90;
 
 for j=1:1:length(el)
   for i=1:1:length(az)
-      f = objfun_disc([az(i) el(j) 60], azimuth, elevation, irradiation, usage);
+      f = objfun_disc([az(i) el(j) 36.7], azimuth, elevation, irradiation, usage);
       funk(j,i) = f;
   end
 end
