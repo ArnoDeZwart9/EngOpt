@@ -5,23 +5,42 @@ azimuth = readmatrix("data\azimuth.csv");
 elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
 usage = transpose(readmatrix("data\usage.csv"));
-
-x0 = [300 20 30]; % Starting location
+A = 20;
+x0 = [300 20 A]; % Starting location
 x = x0; 
+
+%% Plotting for illustration
+
+az = 1:1:360;
+el = 1:1:90;
+    
+for j=1:1:length(el)
+  for i=1:1:length(az)
+      f = objfun_disc([az(i) el(j) A], azimuth, elevation, irradiation, usage);
+      funk(j,i) = f;
+  end
+end
+
+figure();
+surf(az,el,funk)
+figure();
+contour(az,el,funk,10,'showtext','on')
+xlabel("Azimuth Angle [Degrees]")
+ylabel("Elevation Angle [Degrees]")
+hold on
 
 x_old = [0 0 0];
 d = [0 0 0];
-n = 0;
-f_old = 0;
-f = 2;
 
-while norm(f-f_old) > 1
+n = 0;
+while norm(x-x_old) > 1
+    
+    d_old = d;
     x_old = x;
-    f_old = f;
 
     %% Forward difference
     % azimuth is x direction, elevation is y direction
-    h = 0.001;
+    h = 0.01;
     f = objfun_disc(x, azimuth, elevation, irradiation, usage);
     % Step in x direction
     fxplush = objfun_disc(x+[h 0 0], azimuth, elevation, irradiation, usage);
@@ -31,12 +50,11 @@ while norm(f-f_old) > 1
     fyplush = objfun_disc(x+[0 h 0], azimuth, elevation, irradiation, usage);
     dfy = (fyplush - f)/h;
     
-    fzplush = objfun_disc(x+[0 0 h], azimuth, elevation, irradiation, usage);
-    dfz = (fzplush - f)/h;
-
     % Direction of step:
-    d = -[dfx dfy dfz];
+    d = -[dfx dfy 0];
     d = d/norm(d);
+  
+  
 
 
     %% Line search to next point
@@ -50,6 +68,8 @@ while norm(f-f_old) > 1
     f3 = objfun_disc(x+I*d, azimuth, elevation, irradiation, usage); 
     f4 = objfun_disc(x+I*phi*d, azimuth, elevation, irradiation, usage); 
     
+    plot(x(1), x(2),'.','MarkerSize',20)
+ 
     while I >= 0.01 % Internal stop length condition
     
         I = I0*phi^i; % Calculates new interval length for step size
@@ -70,51 +90,10 @@ while norm(f-f_old) > 1
         
         end
         i = i+1; % Adjust counter for interval size
-      
-        
-    end
+        hold on
+        plot(x(1), x(2),'.','MarkerSize',8)
     
+    end
+    %plot(x(1), x(2),'.','MarkerSize',20) 
+    n = n+1;
 end
-
-
-if x(1) > 180
-    x(1) = x(1)-180;
-end
-if x(2) > 90
-    x(2) = x(2)-90;
-end
-
-fprintf('This is the optimum Azimuth :%4.2f\n',x(1))
-fprintf('This is the optimum Elevation :%4.2f\n',x(2))
-fprintf('This is the optimum Area :%4.2f\n',x(3))
-fprintf('This is the objective value :%4.0f\n',f)
-
-
-
-% Contour plot to show optimum objective function
-az = 1:4:360;
-el = 1:1:90;
-
-for j=1:1:length(el)
-  for i=1:1:length(az)
-      fplot = objfun_disc([az(i) el(j) x(3)], azimuth, elevation, irradiation, usage);
-      funk(j,i) = fplot;
-  end
-end
-
-
-
-figure(1);
-contour(az,el,funk,"ShowText","on")
-xlabel("Azimuth Angle [Degrees]")
-ylabel("Elevation Angle [Degrees]")
-hold on
-plot(x(1),x(2),'o','markersize',15)
-
-
-figure(2);
-surf(az,el,funk)
-xlabel("Azimuth Angle [Degrees]")
-ylabel("Elevation Angle [Degrees]")
-hold on
-plot3(x(1),x(2),f,'.','markersize',15)
