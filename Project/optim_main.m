@@ -8,7 +8,6 @@ irradiation = readmatrix("data\irradiation.csv");
 usage = readmatrix("data\usage.csv");
 
 
-
 %% run objective 
 format('long');
 x0 = [180 45 30];
@@ -45,5 +44,3 @@ Swarm_options = optimoptions("particleswarm", ...
     Display="iter");
 
 [x_Swarm, f_Swarm] = particleswarm(@(x) objfun_disc(x,azimuth, elevation, irradiation, usage), 3, lb, ub, Swarm_options);
-
-%% plotting
