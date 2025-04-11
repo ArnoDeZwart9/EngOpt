@@ -1,17 +1,17 @@
-clear all;
+clear;
 
 %% load data
 
 azimuth = readmatrix("data\azimuth.csv");
 elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
-usage = transpose(readmatrix("data\usage.csv"));
+usage = readmatrix("data\usage.csv");
 
 
 
 %% run objective 
 format('long');
-x0 = [90 30 30];
+x0 = [180 45 30];
 lb = [0 0 0];
 ub = [360 90 100];
 
@@ -40,7 +40,7 @@ beq = [];
 
 [x_GA, f_GA] = ga(@(x) objfun_disc(x,azimuth, elevation, irradiation, usage), 3, A, b, Aeq, beq, lb, ub);
 
-%% laatste keer
+%% Particle Swarm
 Swarm_options = optimoptions("particleswarm", ...
     Display="iter");
 

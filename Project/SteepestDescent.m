@@ -4,7 +4,7 @@ close all
 azimuth = readmatrix("data\azimuth.csv");
 elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
-usage = transpose(readmatrix("data\usage.csv"));
+usage = readmatrix("data\usage.csv");
 
 x0 = [300 20 30]; % Starting location
 x = x0; 

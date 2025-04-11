@@ -5,7 +5,7 @@ clear all;
 azimuth = readmatrix("data\azimuth.csv");
 elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
-usage = transpose(readmatrix("data\usage.csv"));
+usage = readmatrix("data\usage.csv");
 
 
 % Contour plot objective function
@@ -14,7 +14,7 @@ el = 1:1:90;
 
 for j=1:1:length(el)
   for i=1:1:length(az)
-      f = objfun_disc([az(i) el(j) 36.7], azimuth, elevation, irradiation, usage);
+      f = objfun_disc([az(i) el(j) 53.5], azimuth, elevation, irradiation, usage);
       funk(j,i) = f;
   end
 end

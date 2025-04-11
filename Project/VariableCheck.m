@@ -5,7 +5,7 @@ clear all;
 azimuth = readmatrix("data\azimuth.csv");
 elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
-usage = transpose(readmatrix("data\usage.csv"));
+usage = readmatrix("data\usage.csv");
 
 
 %% aziiiii
@@ -150,13 +150,13 @@ ar = 1:1:100;
 tot = length(az) * length(el) * length(ar);
 nu = 0;
 
-F = zeros(length(az),length(el),length(ar));
+% F = zeros(length(az),length(el),length(ar));
 
-for i = 1:1:length(az)
-    for j = 1:1:length(el)
-        for k = 1:1:length(ar)
-            F(i,j,k) = objfun_disc([az(i) el(j) ar(k)], azimuth, elevation, irradiation, usage);
-            nu = nu + 1
-        end
-    end
-end
+% for i = 1:1:length(az)
+%     for j = 1:1:length(el)
+%         for k = 1:1:length(ar)
+%             F(i,j,k) = objfun_disc([az(i) el(j) ar(k)], azimuth, elevation, irradiation, usage);
+%             nu = nu + 1
+%         end
+%     end
+% end
