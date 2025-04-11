@@ -6,7 +6,7 @@ elevation = readmatrix("data\elevation.csv");
 irradiation = readmatrix("data\irradiation.csv");
 usage = readmatrix("data\usage.csv");
 
-x0 = [300 20 30]; % Starting location
+x0 = [180 45 30]; % Starting location
 x = x0; 
 
 x_old = [0 0 0];
@@ -50,7 +50,7 @@ while norm(f-f_old) > 1
     f3 = objfun_disc(x+I*d, azimuth, elevation, irradiation, usage); 
     f4 = objfun_disc(x+I*phi*d, azimuth, elevation, irradiation, usage); 
     
-    while I >= 0.01 % Internal stop length condition
+    while I >= 0.1 % Internal stop length condition
     
         I = I0*phi^i; % Calculates new interval length for step size
         I_new = I0*phi^(i+1);
